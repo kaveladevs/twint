@@ -1,0 +1,44 @@
+.twint-search-form {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    margin: 20px 0;
+    max-width: 800px;
+}
+
+.twint-status {
+    margin-left: 10px;
+    font-style: italic;
+    color: #666;
+}
+
+.twint-results {
+    margin-top: 20px;
+}
+
+.twint-user-card {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    max-width: 600px;
+}
+
+.twint-user-card h2 {
+    margin-top: 10px;
+}
+
+.twint-user-card small {
+    color: #999;
+    font-weight: normal;
+}
+
+.twint-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+#twint-test-result {
+    margin-left: 10px;
+    font-weight: 600;
+}
