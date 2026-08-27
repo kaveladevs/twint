@@ -113,3 +113,6 @@ ENV/
 *.txt
 
 test_twint.py
+
+# scraped pin images
+pins/
