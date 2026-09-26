@@ -1,65 +1,35 @@
-import twint
-import schedule
 import time
 
-# you can change the name of each "job" after "def" if you'd like.
-def jobone():
-	print ("Fetching Tweets")
-	c = twint.Config()
-	# choose username (optional)
-	c.Username = "insert username here"
-	# choose search term (optional)
-	c.Search = "insert search term here"
-	# choose beginning time (narrow results)
-	c.Since = "2018-01-01"
-	# set limit on total tweets
-	c.Limit = 1000
-	# no idea, but makes the csv format properly
-	c.Store_csv = True
-	# format of the csv
-	c.Custom = ["date", "time", "username", "tweet", "link", "likes", "retweets", "replies", "mentions", "hashtags"]
-	# change the name of the csv file
-	c.Output = "filename.csv"
-	twint.run.Search(c)
+import schedule
+import twint
 
-def jobtwo():
-	print ("Fetching Tweets")
-	c = twint.Config()
-	# choose username (optional)
-	c.Username = "insert username here"
-	# choose search term (optional)
-	c.Search = "insert search term here"
-	# choose beginning time (narrow results)
-	c.Since = "2018-01-01"
-	# set limit on total tweets
-	c.Limit = 1000
-	# no idea, but makes the csv format properly
-	c.Store_csv = True
-	# format of the csv
-	c.Custom = ["date", "time", "username", "tweet", "link", "likes", "retweets", "replies", "mentions", "hashtags"]
-	# change the name of the csv file
-	c.Output = "filename2.csv"
-	twint.run.Search(c)
+CSV_FIELDS = ["date", "time", "username", "tweet", "link", "likes", "retweets", "replies", "mentions", "hashtags"]
 
-# run once when you start the program
 
-jobone()
-jobtwo()
+def fetch(output, username=None, search=None, since="2018-01-01", limit=1000):
+    print("Fetching Tweets")
+    c = twint.Config()
+    c.Username = username
+    c.Search = search
+    c.Since = since
+    c.Limit = limit
+    c.Store_csv = True
+    c.Custom = CSV_FIELDS
+    c.Output = output
+    twint.run.Search(c)
 
-# run every minute(s), hour, day at, day of the week, day of the week and time. Use "#" to block out which ones you don't want to use.  Remove it to active. Also, replace "jobone" and "jobtwo" with your new function names (if applicable)
 
-# schedule.every(1).minutes.do(jobone)
-schedule.every().hour.do(jobone)
-# schedule.every().day.at("10:30").do(jobone)
-# schedule.every().monday.do(jobone)
-# schedule.every().wednesday.at("13:15").do(jobone)
+# Define your jobs here: each one fetches tweets into its own CSV file.
+jobs = [
+    lambda: fetch("filename.csv", username="insert username here", search="insert search term here"),
+    lambda: fetch("filename2.csv", username="insert username here", search="insert search term here"),
+]
 
-# schedule.every(1).minutes.do(jobtwo)
-schedule.every().hour.do(jobtwo)
-# schedule.every().day.at("10:30").do(jobtwo)
-# schedule.every().monday.do(jobtwo)
-# schedule.every().wednesday.at("13:15").do(jobtwo)
+for job in jobs:
+    job()  # run once at startup
+    # Other schedules: schedule.every(1).minutes, .day.at("10:30"), .monday, .wednesday.at("13:15")
+    schedule.every().hour.do(job)
 
 while True:
-  schedule.run_pending()
-  time.sleep(1)
+    schedule.run_pending()
+    time.sleep(1)

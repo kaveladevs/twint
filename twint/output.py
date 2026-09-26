@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from . import format, get
+from . import format
 from .tweet import Tweet
 from .user import User
 from .storage import db, elasticsearch, write, panda
@@ -172,7 +172,6 @@ async def Tweets(tweets, config, conn):
 
 async def Users(u, config, conn):
     logme.debug(__name__ + ':User')
-    global users_list
 
     user = User(u)
     output = format.User(config.Format, user)
@@ -210,8 +209,6 @@ async def Users(u, config, conn):
 
 async def Username(username, config, conn):
     logme.debug(__name__ + ':Username')
-    global _follows_object
-    global follows_list
     follow_var = config.Following * "following" + config.Followers * "followers"
 
     if config.Database:

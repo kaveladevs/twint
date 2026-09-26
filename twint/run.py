@@ -306,7 +306,7 @@ class Twint:
                                                           self.config.Guest_token)
             await get.User(self.config.Username, self.config, db.Conn(self.config.Database))
 
-        except Exception as e:
+        except Exception:
             logme.exception(__name__ + ':Twint:Lookup:Unexpected exception occurred.')
             raise
 
@@ -321,7 +321,7 @@ def run(config, callback=None):
         else:
             logme.exception(__name__ + ':run:Unexpected exception while handling an expected RuntimeError.')
             raise
-    except Exception as e:
+    except Exception:
         logme.exception(
             __name__ + ':run:Unexpected exception occurred while attempting to get or create a new event loop.')
         raise

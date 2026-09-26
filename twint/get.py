@@ -1,5 +1,4 @@
 from async_timeout import timeout
-from datetime import datetime
 from bs4 import BeautifulSoup
 import sys
 import socket
@@ -269,7 +268,7 @@ async def Multi(feed, config, conn):
                                                                               config, conn)))
             logme.debug(__name__ + ':Multi:asyncioGather')
             await asyncio.gather(*futures)
-    except Exception as e:
+    except Exception:
         # TODO: fix error not error
         # print(str(e) + " [x] get.Multi")
         # will return "'NoneType' object is not callable"

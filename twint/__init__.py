@@ -9,9 +9,9 @@ Copyright (c) 2018 Cody Zacharias
 '''
 import logging, os
 
-from .config import Config
-from .__version__ import __version__
-from . import run
+from .config import Config  # noqa: F401
+from .__version__ import __version__  # noqa: F401
+from . import run  # noqa: F401
 
 _levels = {
     'info': logging.INFO,

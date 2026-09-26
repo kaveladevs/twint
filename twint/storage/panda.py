@@ -45,7 +45,7 @@ def _autoget(_type):
     elif _type == "user":
         User_df = _concat(User_df, _type)
     else:
-        error("[x] Wrong type of object passed")
+        raise ValueError("[x] Wrong type of object passed")
 
 
 def update(object, config):
